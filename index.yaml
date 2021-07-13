@@ -3,6 +3,16 @@ entries:
   coturn:
   - apiVersion: v2
     appVersion: 4.5.2
+    created: "2021-07-13T12:24:30.407945079Z"
+    description: A Helm chart for deploying coturn
+    digest: f7bca60d8169b64c09e879069ecbe363940d7362e86e85633fa005e040372bae
+    name: coturn
+    type: application
+    urls:
+    - https://github.com/cip-core-mirrors/cip-helm/releases/download/coturn-0.2.4/coturn-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
+    appVersion: 4.5.2
     created: "2021-07-13T12:20:27.007839916Z"
     description: A Helm chart for deploying coturn
     digest: 28cbf7d6114d435785b3f89d35a57dee2de59116a31ff69bb8f9706a8819190e
