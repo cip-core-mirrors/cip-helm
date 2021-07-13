@@ -42,3 +42,15 @@ image:
 replicaCount: 1
 resources: {}
 runAsNonRoot: false
+
+conf: |
+  realm=turn.{{ .Values.serverName }}
+  min-port={{ .Values.ports.from }}
+  max-port={{ .Values.ports.to }}
+  log-file=stdout
+  pidfile=/var/tmp/turnserver.pid
+  userdb=/var/tmp/turnserver.db
+  no-cli
+  no-tls
+  no-dtls
+  prod
