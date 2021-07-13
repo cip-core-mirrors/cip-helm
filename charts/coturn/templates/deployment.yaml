@@ -26,9 +26,11 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- if .Values.runAsNonRoot }}
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
+{{- end }}
       {{- if eq .Values.kind "DaemonSet" }}
       hostNetwork: true
       {{- end }}
@@ -56,12 +58,14 @@ spec:
               readOnly: true
             - name: var-tmp
               mountPath: /var/tmp
+{{- if .Values.runAsNonRoot }}
           securityContext:
             capabilities:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+{{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

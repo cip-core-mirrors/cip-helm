@@ -41,3 +41,4 @@ image:
   pullPolicy: IfNotPresent
 replicaCount: 1
 resources: {}
+runAsNonRoot: false
