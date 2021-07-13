@@ -1,0 +1,29 @@
+{{- $portRange := untilStep (int .Values.coturn.ports.from) (int (add1 .Values.coturn.ports.to)) 1 -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "coturn.fullname" . }}
+  labels:
+{{ include "coturn.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 3478
+      targetPort: turn-3478
+      {{- if eq .Values.service.type "NodePort" }}
+      nodePort: 3478
+      {{- end }}
+      protocol: TCP
+      name: turn-3478
+    {{- range $portRange }}
+    - port: {{ . }}
+      targetPort: {{ . }}
+      {{- if eq $.Values.coturn.service.type "NodePort" }}
+      nodePort: {{ . }}
+      {{- end }}
+      protocol: TCP
+      name: turn-{{ . }}
+    {{- end }}
+  selector:
+    app.kubernetes.io/name: {{ include "coturn.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
