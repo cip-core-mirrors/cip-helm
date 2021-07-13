@@ -6,8 +6,8 @@ metadata:
   labels:
 {{ include "coturn.labels" . | indent 4 }}
 spec:
-  {{- if eq .Values.coturn.kind "Deployment" }}
-  replicas: {{ .Values.coturn.replicaCount }}
+  {{- if eq .Values.kind "Deployment" }}
+  replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
@@ -17,9 +17,9 @@ spec:
     metadata:
       annotations:
         # re-roll deployment on config change
-        checksum/coturn-config: {{ include (print $.Template.BasePath "/coturn/configmap.yaml") . | sha256sum }}
+        checksum/coturn-config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
-        app.kubernetes.io/name: {{ include "matrix.name" . }}
+        app.kubernetes.io/name: {{ include "coturn.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -29,7 +29,7 @@ spec:
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
-      {{- if eq .Values.coturn.kind "DaemonSet" }}
+      {{- if eq .Values.kind "DaemonSet" }}
       hostNetwork: true
       {{- end }}
       containers:

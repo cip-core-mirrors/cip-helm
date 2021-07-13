@@ -65,8 +65,8 @@ Create the name of the service account to use
 Shared secret for the Coturn server
 */}}
 {{- define "coturn.sharedSecret" -}}
-{{- if .Values.coturn.sharedSecret }}
-{{- .Values.coturn.sharedSecret -}}
+{{- if .Values.sharedSecret }}
+{{- .Values.sharedSecret -}}
 {{- else }}
 {{- randAlphaNum 64 -}}
 {{- end }}
