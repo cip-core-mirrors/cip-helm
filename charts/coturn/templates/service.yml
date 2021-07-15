@@ -5,6 +5,7 @@ metadata:
   name: {{ include "coturn.fullname" . }}
   labels:
 {{ include "coturn.labels" . | indent 4 }}
+  annotations: {{ .Values.service.annotations | toYaml | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -13,7 +14,7 @@ spec:
       {{- if eq .Values.service.type "NodePort" }}
       nodePort: 3478
       {{- end }}
-      protocol: TCP
+      protocol: UDP
       name: turn-3478
     {{- range $portRange }}
     - port: {{ . }}
@@ -21,7 +22,7 @@ spec:
       {{- if eq $.Values.service.type "NodePort" }}
       nodePort: {{ . }}
       {{- end }}
-      protocol: TCP
+      protocol: UDP
       name: turn-{{ . }}
     {{- end }}
   selector:

@@ -33,7 +33,9 @@ service:
   #   NodePort:  Recommended for Deployment configurations. This will open TURN ports on every node and route traffic on these ports to the Coturn pods.
   #              You will need to make sure your cloud provider supports the cluster config setting "apiserver.service-node-port-range", as this range must contain
   #              the ports defined above for the service to be created.
-  type: ClusterIP
+  type: LoadBalancer
+
+  annotations: {}
 
 image:
   repository: "coturn/coturn"
@@ -44,7 +46,6 @@ resources: {}
 runAsNonRoot: false
 
 conf: |
-  realm=turn.{{ .Values.serverName }}
   min-port={{ .Values.ports.from }}
   max-port={{ .Values.ports.to }}
   log-file=stdout
@@ -53,4 +54,5 @@ conf: |
   no-cli
   no-tls
   no-dtls
+  no-udp
   prod

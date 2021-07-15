@@ -42,14 +42,14 @@ spec:
           ports:
             - name: turn-3478
               containerPort: 3478
-              protocol: TCP
+              protocol: UDP
           {{- range $portRange }}
             - name: turn-{{ . }}
               containerPort: {{ . }}
               {{- if eq $.Values.kind "DaemonSet" }}
               hostPort: {{ . }}
               {{- end }}
-              protocol: TCP
+              protocol: UDP
           {{- end }}
           volumeMounts:
             - name: coturn-config
