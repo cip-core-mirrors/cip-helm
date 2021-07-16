@@ -61,4 +61,20 @@ entries:
     urls:
     - https://github.com/cip-core-mirrors/cip-helm/releases/download/coturn-0.2.0/coturn-0.2.0.tgz
     version: 0.2.0
+  jitsi-meet:
+  - apiVersion: v2
+    appVersion: stable-5390-3
+    created: "2021-07-16T13:59:34.864718909Z"
+    dependencies:
+    - condition: prosody.enabled
+      name: prosody
+      repository: ""
+      version: '*'
+    description: A Helm chart for Kubernetes
+    digest: 3d8a7b9945cc9988449140406a26fe5f33df813bb14c0e64f5e61007c8f1ad0b
+    name: jitsi-meet
+    type: application
+    urls:
+    - https://github.com/cip-core-mirrors/cip-helm/releases/download/jitsi-meet-0.1.4/jitsi-meet-0.1.4.tgz
+    version: 0.1.4
 generated: "2021-07-13T08:48:44.184469526Z"
